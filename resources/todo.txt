@@ -1,0 +1,18 @@
+explain drawDashedLine !!!
+change package in RT
+
+-ClassLoaders !!!
+	#DrawingPane.drawClassesFromOtherPackages = true
+-Default Config !!!
+
+-JMenuBar
+-Click boutton droit..
+
+
+
+-Decorator..
+-Screen
+
+
+Les polices suivantes sont utilisables : Dialog, Helvetica, TimesRoman,
+		 * Courier, ZapfDingBats
