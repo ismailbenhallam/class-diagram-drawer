@@ -6,21 +6,21 @@ import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.mql.application.swing.Colors;
+import org.mql.application.swing.utilities.Colors;
 
 public class Relation {
-	private static Set<Class<?>> classesWithSelfAggregation = new HashSet<>();
+	private static final Set<Class<?>> CLASSES_WITH_SELF_AGGREGATION = new HashSet<>();
 
 	public enum RelationType {
-		INHERITANCE, IMPLEMENTATION, AGGREGATION;
+		INHERITANCE, IMPLEMENTATION, AGGREGATION
 	}
 
-	private static Color inheritanceLineColor = Colors.getInheritanceLineColor();
-	private static Color implementationLineColor = Colors.getImplementationLineColor();
-	private static Color aggregationLineColor = Colors.getAggregationLineColor();
-	private DrawingClass from;
-	private DrawingClass to;
-	private RelationType type;
+	private static final Color inheritanceLineColor = Colors.getInheritanceLineColor();
+	private static final Color implementationLineColor = Colors.getImplementationLineColor();
+	private static final Color aggregationLineColor = Colors.getAggregationLineColor();
+	private final DrawingClass from;
+	private final DrawingClass to;
+	private final RelationType type;
 	private Point startPoint;
 	private Point endPoint;
 
@@ -78,10 +78,10 @@ public class Relation {
 		} else if (type == RelationType.AGGREGATION) {
 			g.setColor(aggregationLineColor);
 			if (from.getCls().equals(to.getCls())) {
-				if (!classesWithSelfAggregation.contains(from.getCls())) {
+				if (!CLASSES_WITH_SELF_AGGREGATION.contains(from.getCls())) {
 					new DrawingRelation(from.getArea())
 							.drawRelation(g);
-					classesWithSelfAggregation.add(from.getCls());
+					CLASSES_WITH_SELF_AGGREGATION.add(from.getCls());
 				}
 			} else {
 				new DrawingRelation(startPoint, endPoint, to.getArea().getPointLocation(endPoint), type)
@@ -92,7 +92,7 @@ public class Relation {
 	}
 
 	public static void clearClassesWithSelfAggregation() {
-		classesWithSelfAggregation.clear();
+		CLASSES_WITH_SELF_AGGREGATION.clear();
 	}
 
 }

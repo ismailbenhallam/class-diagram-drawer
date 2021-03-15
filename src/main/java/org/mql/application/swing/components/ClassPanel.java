@@ -1,7 +1,7 @@
 package org.mql.application.swing.components;
 
-import static org.mql.application.swing.SwingUtilities.italicFont;
-import static org.mql.application.swing.SwingUtilities.lineHeight;
+import static org.mql.application.swing.utilities.SwingUtilities.italicFont;
+import static org.mql.application.swing.utilities.SwingUtilities.lineHeight;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,7 +23,7 @@ import org.mql.application.business.ReflectionUtilities;
 import org.mql.application.models.DrawingClass;
 import org.mql.application.models.DrawingLine;
 import org.mql.application.models.DrawingString;
-import org.mql.application.swing.Colors;
+import org.mql.application.swing.utilities.Colors;
 import org.mql.application.swing.listeners.MoveComponentListener;
 
 public class ClassPanel extends JPanel {
@@ -31,17 +31,17 @@ public class ClassPanel extends JPanel {
 	public static final String INTERFACE_LABEL = "<<interface>>";
 	public static final String ENUMERATION_LABEL = "<<enumeration>>";
 	public static final String ANNOTATION_LABEL = "<<annotation>>";
-	private DrawingClass model;
+	private final DrawingClass model;
 	private Color classForegroundColor;
-	private Font font;
+	private final Font font;
 
 	private int totalWidth;
 	private int totalHeight;
-	private FontMetrics metrics;
-	private List<DrawingString> drawingStrings;
-	private List<DrawingLine> drawingLines;
+	private final FontMetrics metrics;
+	private final List<DrawingString> drawingStrings;
+	private final List<DrawingLine> drawingLines;
 	private int caracterWidth;
-	private int spaceWidth;
+	private final int spaceWidth;
 	private int classTypeLabelWidth;
 	private int classTypeLabelHeight;
 	private Area initialArea;
@@ -128,7 +128,7 @@ public class ClassPanel extends JPanel {
 			totalWidth = classTypeLabelWidth;
 		}
 
-		// Si la classe est abstraite, on écrit son nom en Italique
+		// Si la classe est abstraite, on ï¿½crit son nom en Italique
 		if (ReflectionUtilities.isAbstract(clazz)) {
 			if (!clazz.isInterface()) {
 				setBackground(Colors.getAbstractClassBackgroundColor());
@@ -153,16 +153,16 @@ public class ClassPanel extends JPanel {
 		// Draw : <<enumeration>> or <<interface>> or <<interface>>
 		if (!isNormalClass) {
 			drawingStrings.add(new DrawingString(classTypelabel, (totalWidth - classTypeLabelWidth) / 2,
-					classTypeLabelHeight));
+				classTypeLabelHeight));
 		}
 
 		// Draw class name in italic if the class is abstract
 		if (ReflectionUtilities.isAbstract(model.getCls())) {
 			drawingStrings.add(new DrawingString(className, (totalWidth - classNameWidth) / 2,
-					classNameHeight, italicFont(font)));
+				classNameHeight, italicFont(font)));
 		} else {
 			drawingStrings.add(new DrawingString(className, (totalWidth - classNameWidth) / 2,
-					classNameHeight));
+				classNameHeight));
 		}
 
 		// Line After className and type..
@@ -205,9 +205,9 @@ public class ClassPanel extends JPanel {
 			// Draw a line if it's a static Method
 			if (ReflectionUtilities.isStatic(m)) {
 				Point startPoint = new Point(caracterWidth / 2,
-						totalHeight + metrics.getDescent() - spaceWidth);
+					totalHeight + metrics.getDescent() - spaceWidth);
 				Point endPoint = new Point(caracterWidth / 2 + metrics.stringWidth(methodInfo),
-						totalHeight + metrics.getDescent() - spaceWidth);
+					totalHeight + metrics.getDescent() - spaceWidth);
 
 				drawingLines.add(new DrawingLine(startPoint, endPoint));
 
@@ -228,7 +228,7 @@ public class ClassPanel extends JPanel {
 			if (ReflectionUtilities.isStatic(f)) {
 				Point startPoint = new Point(caracterWidth / 2, totalHeight + metrics.getDescent() - spaceWidth);
 				Point endPoint = new Point(caracterWidth / 2 + metrics.stringWidth(fieldInfo),
-						totalHeight + metrics.getDescent() - spaceWidth);
+					totalHeight + metrics.getDescent() - spaceWidth);
 
 				drawingLines.add(new DrawingLine(startPoint, endPoint));
 			}

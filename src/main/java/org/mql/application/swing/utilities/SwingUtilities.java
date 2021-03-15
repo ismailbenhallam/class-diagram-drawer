@@ -1,4 +1,4 @@
-package org.mql.application.swing;
+package org.mql.application.swing.utilities;
 
 import java.awt.Font;
 import java.awt.FontMetrics;

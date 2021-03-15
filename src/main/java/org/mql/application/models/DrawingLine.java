@@ -4,8 +4,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public class DrawingLine {
-	private Point startPoint;
-	private Point endPoint;
+	private final Point startPoint;
+	private final Point endPoint;
 
 	public DrawingLine(Point startPoint, Point endPoint) {
 		this.startPoint = startPoint;

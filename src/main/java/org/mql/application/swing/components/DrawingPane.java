@@ -25,9 +25,9 @@ import org.mql.application.models.Relation.RelationType;
 
 public class DrawingPane extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private Set<Relation> relations;
-	private Set<DrawingClass> classesAlreadyDrawn;
-	private int spaceBetweenClasses;
+	private final Set<Relation> relations;
+	private final Set<DrawingClass> classesAlreadyDrawn;
+	private final int spaceBetweenClasses;
 	private Dimension usedArea;
 	private Map<Integer, Set<ClassPanel>> panelsTable;
 
@@ -38,15 +38,15 @@ public class DrawingPane extends JPanel {
 		usedArea = new Dimension();
 
 		spaceBetweenClasses = Integer
-				.parseInt(ConfigReader.getProperty("DrawingPane.spaceBetweenClasses", String.valueOf("50")));
+			.parseInt(ConfigReader.getProperty("DrawingPane.spaceBetweenClasses", "50"));
 
 		initClassPanels(models);
 		prepareRelations();
 	}
 
 	/*
-	 * Créer les ClassPanel et definir leurs locations selons les niveaux
-	 * (héritage), et les ajouter au Panel principal
+	 * Crï¿½er les ClassPanel et definir leurs locations selons les niveaux
+	 * (hï¿½ritage), et les ajouter au Panel principal
 	 */
 	private void initClassPanels(Map<Integer, Set<DrawingClass>> models) {
 		panelsTable = new Hashtable<>();
@@ -90,7 +90,7 @@ public class DrawingPane extends JPanel {
 	}
 
 	/*
-	 * Initialiser le Set des Relations une seule fois, et les dessiner, à chaque
+	 * Initialiser le Set des Relations une seule fois, et les dessiner, ï¿½ chaque
 	 * repaint
 	 */
 	private void prepareRelations() {
@@ -115,12 +115,12 @@ public class DrawingPane extends JPanel {
 							// Composite : List
 						} else if (f.getGenericType() instanceof ParameterizedType) {
 							ParameterizedType parameterizedType = (ParameterizedType) f.getGenericType();
-							// Si c'est une collection et qu'elle est paramétrée
+							// Si c'est une collection et qu'elle est paramï¿½trï¿½e
 							if (Collection.class.isAssignableFrom((Class<?>) parameterizedType.getRawType())
-									&& parameterizedType.getActualTypeArguments().length > 0
-									&& parameterizedType.getActualTypeArguments()[0] instanceof Class<?>
-									&& ((Class<?>) parameterizedType.getActualTypeArguments()[0])
-											.equals(composant.getCls())) {
+								&& parameterizedType.getActualTypeArguments().length > 0
+								&& parameterizedType.getActualTypeArguments()[0] instanceof Class<?>
+								&& parameterizedType.getActualTypeArguments()[0]
+								.equals(composant.getCls())) {
 								relations.add(new Relation(composant, model, RelationType.AGGREGATION));
 							}
 							// Composite : []
@@ -136,7 +136,7 @@ public class DrawingPane extends JPanel {
 			}
 
 			/*
-			 * flag pour indiquer que cette class/interface hérite/implemente une/des
+			 * flag pour indiquer que cette class/interface hï¿½rite/implemente une/des
 			 * interfaces(s)
 			 */
 			isImplementing = false;
@@ -146,18 +146,18 @@ public class DrawingPane extends JPanel {
 			}
 
 			for (DrawingClass supModel : classesAlreadyDrawn) {
-				// Si on a trouvé la superclass de cette classe
+				// Si on a trouvï¿½ la superclass de cette classe
 				if (model.getCls().getSuperclass() != null
-						&& model.getCls().getSuperclass().equals(supModel.getCls())) {
+					&& model.getCls().getSuperclass().equals(supModel.getCls())) {
 					relations.add(new Relation(model, supModel, RelationType.INHERITANCE));
-					// Si cette class/interface hérite/implemente une/des interfaces(s)
+					// Si cette class/interface hï¿½rite/implemente une/des interfaces(s)
 				} else if (isImplementing && interfaces.contains(supModel.getCls())) {
-					// Si c'est une interface qui hérite d'une autre, le type de relation est :
-					// héritage
+					// Si c'est une interface qui hï¿½rite d'une autre, le type de relation est :
+					// hï¿½ritage
 					if (model.getCls().isInterface()) {
 						relations.add(new Relation(model, supModel, RelationType.INHERITANCE));
 					}
-					// Si c'est une class qui hérite d'une interface, le type de relation est :
+					// Si c'est une class qui hï¿½rite d'une interface, le type de relation est :
 					// implementation
 					else {
 						relations.add(new Relation(model, supModel, RelationType.IMPLEMENTATION));
@@ -167,7 +167,7 @@ public class DrawingPane extends JPanel {
 		}
 	}
 
-	/* Mettre à jour les relations pour pouvoir dessiner les lines convenablement */
+	/* Mettre ï¿½ jour les relations pour pouvoir dessiner les lines convenablement */
 
 	private void updateRelations() {
 		for (Relation r : relations) {
@@ -175,7 +175,7 @@ public class DrawingPane extends JPanel {
 		}
 	}
 
-	/* Recalculer la zone utilisé, pour pouvoir l'adapter avec JScrollPane */
+	/* Recalculer la zone utilisï¿½, pour pouvoir l'adapter avec JScrollPane */
 
 	public void reCalculateUsedArea() {
 		Dimension d = new Dimension();

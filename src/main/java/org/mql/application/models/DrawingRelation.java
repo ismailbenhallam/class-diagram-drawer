@@ -23,13 +23,13 @@ public class DrawingRelation {
 	private Polygon triangle;
 
 	private PointLocation pointLocation;
-	private RelationType relationType;
+	private final RelationType relationType;
 	private Area area;
 
 	static {
 		try {
 			rib = Integer.parseInt(
-					ConfigReader.getProperty("DrawingRelation.SUB_LINE_RIB", String.valueOf(DEFAULT_TRIANGLE_RIB)));
+				ConfigReader.getProperty("DrawingRelation.SUB_LINE_RIB", String.valueOf(DEFAULT_TRIANGLE_RIB)));
 		} catch (NumberFormatException e) {
 			rib = DEFAULT_TRIANGLE_RIB;
 		}
@@ -72,7 +72,7 @@ public class DrawingRelation {
 		int x = p1.x;
 		int y = p1.y;
 		lozenge = new Polygon(new int[] { x, x + rib, x + rib * 2, x + rib },
-				new int[] { y, y + rib / 2, y, y - rib / 2 }, 4);
+			new int[] { y, y + rib / 2, y, y - rib / 2 }, 4);
 		g.drawPolygon(lozenge);
 
 		/***************/
@@ -111,30 +111,30 @@ public class DrawingRelation {
 			return;
 		}
 		switch (pointLocation) {
-			case UP:
-				lozenge = new Polygon(new int[] { x, x + rib / 2, x, x - rib / 2 },
-						new int[] { y, y - rib, y - 2 * rib, y - rib }, 4);
+			case UP -> {
+				lozenge = new Polygon(new int[]{x, x + rib / 2, x, x - rib / 2},
+					new int[]{y, y - rib, y - 2 * rib, y - rib}, 4);
 				newEndPoint.y -= 2 * rib;
-				break;
-			case DOWN:
-				lozenge = new Polygon(new int[] { x, x + rib / 2, x, x - rib / 2 },
-						new int[] { y, y + rib, y + 2 * rib, y + rib }, 4);
+			}
+			case DOWN -> {
+				lozenge = new Polygon(new int[]{x, x + rib / 2, x, x - rib / 2},
+					new int[]{y, y + rib, y + 2 * rib, y + rib}, 4);
 				newEndPoint.y += 2 * rib;
-				break;
-			case RIGHT:
-				lozenge = new Polygon(new int[] { x, x + rib, x + rib * 2, x + rib },
-						new int[] { y, y + rib / 2, y, y - rib / 2 }, 4);
+			}
+			case RIGHT -> {
+				lozenge = new Polygon(new int[]{x, x + rib, x + rib * 2, x + rib},
+					new int[]{y, y + rib / 2, y, y - rib / 2}, 4);
 				newEndPoint.x += 2 * rib;
-				break;
-			case LEFT:
-				lozenge = new Polygon(new int[] { x, x - rib, x - rib * 2, x - rib },
-						new int[] { y, y - rib / 2, y, y + rib / 2 }, 4);
+			}
+			case LEFT -> {
+				lozenge = new Polygon(new int[]{x, x - rib, x - rib * 2, x - rib},
+					new int[]{y, y - rib / 2, y, y + rib / 2}, 4);
 				newEndPoint.x -= 2 * rib;
-				break;
+			}
 		}
 	}
 
-	// Dessiner le trait pointillé + flèche qui exprime l'héritage dans le langage
+	// Dessiner le trait pointillÃ¨ + flÃ¨che qui exprime l'hÃ¨ritage dans le langage
 	private void drawImplementation(Graphics g) {
 		newEndPoint = (Point) endPoint.clone();
 		initTriangle();
@@ -143,7 +143,7 @@ public class DrawingRelation {
 		g.drawPolygon(triangle);
 	}
 
-	// Dessiner le trait + flèche qui exprime l'héritage dans le langage UML
+	// Dessiner le trait + flÃ¨che qui exprime l'hÃ¨ritage dans le langage UML
 	private void drawInheritance(Graphics g) {
 		newEndPoint = (Point) endPoint.clone();
 		initTriangle();
@@ -152,32 +152,32 @@ public class DrawingRelation {
 		g.drawPolygon(triangle);
 	}
 
-	// Initialize les points du triangle à dessiner selon le PointLocation
+	// Initialize les points du triangle Ã¨ dessiner selon le PointLocation
 	private void initTriangle() {
 		newEndPoint = (Point) endPoint.clone();
 		int x = endPoint.x;
 		int y = endPoint.y;
 		switch (pointLocation) {
-			case UP:
-				triangle = new Polygon(new int[] { x, x + rib / 2, x - rib / 2 },
-						new int[] { y, y - rib, y - rib }, 3);
+			case UP -> {
+				triangle = new Polygon(new int[]{x, x + rib / 2, x - rib / 2},
+					new int[]{y, y - rib, y - rib}, 3);
 				newEndPoint.y -= rib;
-				break;
-			case DOWN:
-				triangle = new Polygon(new int[] { x, x - rib / 2, x + rib / 2 },
-						new int[] { y, y + rib, y + rib }, 3);
+			}
+			case DOWN -> {
+				triangle = new Polygon(new int[]{x, x - rib / 2, x + rib / 2},
+					new int[]{y, y + rib, y + rib}, 3);
 				newEndPoint.y += rib;
-				break;
-			case RIGHT:
-				triangle = new Polygon(new int[] { x, x + rib, x + rib },
-						new int[] { y, y + rib / 2, y - rib / 2 }, 3);
+			}
+			case RIGHT -> {
+				triangle = new Polygon(new int[]{x, x + rib, x + rib},
+					new int[]{y, y + rib / 2, y - rib / 2}, 3);
 				newEndPoint.x += rib;
-				break;
-			case LEFT:
-				triangle = new Polygon(new int[] { x, x - rib, x - rib },
-						new int[] { y, y - rib / 2, y + rib / 2 }, 3);
+			}
+			case LEFT -> {
+				triangle = new Polygon(new int[]{x, x - rib, x - rib},
+					new int[]{y, y - rib / 2, y + rib / 2}, 3);
 				newEndPoint.x -= rib;
-				break;
+			}
 		}
 	}
 

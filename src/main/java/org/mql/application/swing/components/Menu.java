@@ -10,14 +10,14 @@ import javax.swing.JMenuItem;
 
 public class Menu extends JMenuBar {
 	private static final long serialVersionUID = 1L;
-	private String path = "resources/icons/";
-	private String extension = ".gif";
-	private Hashtable<String, JMenuItem> items;
+	private static final String PATH = "resources/icons/";
+	private static final String EXTENSION = ".gif";
+	private final Hashtable<String, JMenuItem> items;
 
 	public Menu(String[]... labels) {
 		items = new Hashtable<>();
-		for (int i = 0; i < labels.length; i++) {
-			addMenu(labels[i]);
+		for (String[] label : labels) {
+			addMenu(label);
 		}
 	}
 
@@ -28,7 +28,7 @@ public class Menu extends JMenuBar {
 			if (t[i].equals("-")) {
 				m.addSeparator();
 			} else {
-				JMenuItem item = new JMenuItem(t[i], new ImageIcon(path + t[i] + extension));
+				JMenuItem item = new JMenuItem(t[i], new ImageIcon(PATH + t[i] + EXTENSION));
 				m.add(item);
 				items.put(t[i], item);
 			}

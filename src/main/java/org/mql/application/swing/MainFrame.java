@@ -27,24 +27,24 @@ import org.mql.application.business.ReflectionUtilities;
 import org.mql.application.models.DrawingClass;
 import org.mql.application.swing.components.DrawingPane;
 import org.mql.application.swing.components.Menu;
+import org.mql.application.swing.utilities.Colors;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private DrawingPane drawingPane;
-	private JScrollPane scrollPane;
-	private JPanel contentPane;
+	private final DrawingPane drawingPane;
+	private final JScrollPane scrollPane;
+	private final JPanel contentPane;
 	private Menu menuBar;
 	private Map<Integer, Set<DrawingClass>> models;
-	private String packageName;
-	private static final ImageIcon ICON = new ImageIcon("resources/icons/package.png");
+	private final String packageName;
+	private static final ImageIcon ICON = new ImageIcon("icons/package.png");
 
 	public MainFrame() {
 		super("Diagramme de classe");
 
 		setIconImage(ICON.getImage());
-		Icon image = new ImageIcon("resources/icons/package.png");
-		SortedSet<String> packages = new TreeSet<>();
-		packages.addAll(ReflectionUtilities.getInternalPackages());
+		Icon image = new ImageIcon("icons/package.png");
+		SortedSet<String> packages = new TreeSet<>(ReflectionUtilities.getInternalPackages());
 
 		packageName = (String) JOptionPane.showInputDialog(this, "Veuillez saisir le package",
 				"diagramme de classes",
